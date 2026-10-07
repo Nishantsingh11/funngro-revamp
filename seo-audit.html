@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en-IN" class="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO Audit of funngro.com | Funngro Website Revamp</title>
+<meta name="description" content="SEO audit of funngro.com covering rendering, indexing, on-page content, structured data and page speed, with a prioritised list of fixes.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<style>
+  .report { width: min(100% - 2rem, 860px); margin-inline: auto; }
+  .report section { padding-block: 1.75rem; }
+  .report h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .report h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+  .report p, .report li { max-width: 72ch; }
+  .report p + p { margin-top: .8rem; }
+  .meta { margin-top: .75rem; color: var(--muted); font-size: .95rem; }
+  .bullets li { position: relative; margin-top: .5rem; padding-left: 1.3rem; }
+  .bullets li::before { content: ""; position: absolute; left: 0; top: .65em; width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent-text); }
+  ol.bullets { counter-reset: n; }
+  ol.bullets li { counter-increment: n; padding-left: 1.8rem; }
+  ol.bullets li::before { content: counter(n) "."; top: 0; width: auto; height: auto; background: none; font-weight: 700; color: var(--accent-text); }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; background: var(--surface); }
+  th, td { padding: .6rem .7rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 700; }
+  td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  code { font-size: .88em; background: var(--surface-2); padding: .1em .35em; border-radius: 5px; overflow-wrap: anywhere; }
+  .finding { margin-top: 1rem; padding: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; break-inside: avoid; }
+  .finding h3 { margin-bottom: .6rem; }
+  .finding dt { margin-top: .7rem; font-weight: 700; font-size: .85rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .finding dd { margin: .2rem 0 0; }
+  .pri { display: inline-block; margin-bottom: .6rem; padding: .15rem .6rem; border-radius: 999px; font-size: .78rem; font-weight: 700; }
+  .high { background: #fde3e1; color: #9b1c12; }
+  .med { background: #fdf0cf; color: #7a5200; }
+  .low { background: var(--surface-2); color: var(--muted); }
+  @page { size: A4; margin: 14mm; }
+  @media print {
+    .site-header, footer, .skip { display: none; }
+    body { background: #fff; font-size: 10pt; }
+    .report section { padding-block: .7rem; }
+    .finding { margin-top: .6rem; padding: .8rem 1rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Funngro home">funn<span>gro</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="./">For Teens</a></li>
+        <li><a href="company.html">For Companies</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="report">
+  <section>
+    <p class="eyebrow">Funngro Website Revamp · SEO audit report</p>
+    <h1>SEO audit of funngro.com</h1>
+    <p class="meta">Audited on 7 October 2026. Pages checked: the homepage, <code>/earn</code> (the teen page), <code>/for-brands</code> (the company page), <code>/faq</code>, <code>robots.txt</code> and <code>sitemap.xml</code>.</p>
+  </section>
+
+  <section>
+    <h2>Summary</h2>
+    <p>funngro.com gets the visible basics right and scores 100 for SEO in Lighthouse. The main risk sits underneath that score. The server sends an almost empty page, and everything a search engine reads (the text, headings, links, meta description and canonical tag) is added afterwards by JavaScript.</p>
+    <p>Pre-rendering the pages fixes that and several smaller findings at the same time. After that, the biggest gains are a real 404 status for missing pages, one consistent website address, and rewriting the Earn page for the teen audience it is meant for.</p>
+
+    <h3 style="margin:1.5rem 0 .6rem">Top five fixes, in order</h3>
+    <ol class="bullets">
+      <li>Send the full page content in the server HTML (pre-render or server-side render).</li>
+      <li>Put the meta description and canonical tag in the server HTML.</li>
+      <li>Return a real 404 status for pages that do not exist.</li>
+      <li>Use <code>www.funngro.com</code> everywhere and make the redirect permanent (301).</li>
+      <li>Rewrite <code>/earn</code> around teens and students, with a cleaner heading structure.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Lighthouse scores</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Page</th><th>Performance</th><th>Accessibility</th><th>Best practices</th><th>SEO</th><th>LCP</th><th>TBT</th><th>CLS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Homepage</td><td class="n">70</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">2.5 s</td><td class="n">1,250 ms</td><td class="n">0.05</td></tr>
+          <tr><td>/earn</td><td class="n">75</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">3.7 s</td><td class="n">310 ms</td><td class="n">0.09</td></tr>
+          <tr><td>/for-brands</td><td class="n">70</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">3.9 s</td><td class="n">470 ms</td><td class="n">0.11</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lighthouse 13.5, mobile emulation, one lab run per page. Good targets are LCP under 2.5 s, TBT under 200 ms and CLS under 0.1. Lighthouse runs JavaScript before it checks SEO and only tests the basics, so its SEO score of 100 does not cover the findings below.</p>
+  </section>
+
+  <section>
+    <h2>What already works</h2>
+    <ul class="bullets">
+      <li>HTTPS with HSTS, and every address variant ends up on one host.</li>
+      <li>A valid <code>robots.txt</code> that blocks admin, auth and API paths and points to the sitemap.</li>
+      <li>A unique, well-sized title on each page, with Open Graph and Twitter tags in the server HTML.</li>
+      <li>Exactly one H1 on each page checked.</li>
+      <li>Alt text on all 19 homepage images, and 18 of them lazy-loaded.</li>
+      <li>Structured data for Organization, WebSite, BreadcrumbList, FAQPage and MobileApplication.</li>
+      <li>Static files are compressed and cached for a year, and fonts are self-hosted.</li>
+      <li>Accessibility and best-practice scores of 100 on all three pages.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Findings</h2>
+
+    <div class="finding">
+      <span class="pri high">High priority</span>
+      <h3>1. The server sends an empty page</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>Every URL returns about 3.5 KB of HTML whose body is only <code>&lt;div id="root"&gt;&lt;/div&gt;</code>. The server HTML for <code>/earn</code> has 0 headings, 0 links and 0 words of body copy. The content appears only after a 636 KB JavaScript bundle (192 KB compressed) has run. A request sent as Googlebot gets the same empty page.</dd>
+        <dt>Why it matters</dt>
+        <dd>Google can run JavaScript, but it does so in a later second pass, which slows down indexing of new and changed pages. Crawlers that do not run JavaScript see no content and no internal links at all.</dd>
+        <dt>Fix</dt>
+        <dd>Pre-render the marketing pages at build time, or render them on the server, so the full HTML is in the first response. These pages are static content, so pre-rendering is enough.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri high">High priority</span>
+      <h3>2. Meta description and canonical tag are missing from the server HTML</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>The server HTML of <code>/</code>, <code>/earn</code> and <code>/for-brands</code> contains no <code>&lt;meta name="description"&gt;</code> and no <code>&lt;link rel="canonical"&gt;</code>. Both are injected later by JavaScript.</dd>
+        <dt>Why it matters</dt>
+        <dd>These two tags control the search snippet and which URL gets the ranking credit. They should not depend on a script running.</dd>
+        <dt>Fix</dt>
+        <dd>The server already writes a page-specific title and Open Graph tags into the HTML. Add the description and canonical in the same place.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri high">High priority</span>
+      <h3>3. Missing pages return 200 instead of 404</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd><code>/zzz-not-a-page-123</code>, <code>/company</code> and <code>/teen</code> all return HTTP 200 with the homepage title. JavaScript then swaps in a "Page not found" message and a noindex tag.</dd>
+        <dt>Why it matters</dt>
+        <dd>This is a soft 404. Any mistyped or outdated link looks like a working page, which wastes crawl budget and shows up as soft-404 errors in Search Console.</dd>
+        <dt>Fix</dt>
+        <dd>Return a 404 status from the server for any path that is not a known route.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri high">High priority</span>
+      <h3>4. Two different website addresses are in use</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>The canonical tag, <code>og:url</code> and the server-side structured data use <code>https://funngro.com</code>. That address redirects to <code>https://www.funngro.com</code>, which is the one used in the sitemap and <code>robots.txt</code>. The redirect is a temporary 302.</dd>
+        <dt>Why it matters</dt>
+        <dd>The canonical tag points at a URL that redirects elsewhere, so Google receives mixed signals about the preferred address. A 302 also tells search engines the move is temporary.</dd>
+        <dt>Fix</dt>
+        <dd>Use <code>https://www.funngro.com</code> in every canonical, <code>og:url</code> and structured-data URL, and change the redirect to a 301.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>5. Titles change after JavaScript runs</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>On <code>/earn</code> the server title is "How to Earn Online as a Teen in India | Funngro". After JavaScript it becomes "Earn Money Online Through Online Jobs &amp; Remote Work", with no brand name. The homepage title changes too. Both pages then carry two <code>og:title</code> tags with different values.</dd>
+        <dt>Why it matters</dt>
+        <dd>Search engines and social previews can pick either version, so the page is described inconsistently.</dd>
+        <dt>Fix</dt>
+        <dd>Keep one title per page and write it in one place.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>6. The Earn page does not speak to teens</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>The server title promises earning "as a Teen", but the words "teen" and "student" appear 0 times in the page copy. The copy repeats generic phrases instead: "earn money" 14 times, "part-time jobs" 13 times and "online work for earning" 4 times, in roughly 1,200 words.</dd>
+        <dt>Why it matters</dt>
+        <dd>The page competes for broad job-search terms rather than the specific searches Funngro's audience makes, and the repeated phrases read as keyword stuffing.</dd>
+        <dt>Fix</dt>
+        <dd>Write the page for one search intent, such as earning money online as a teen or student in India, and use natural language.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>7. Heading structure on the Earn page is overloaded</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd><code>/earn</code> has 52 headings. "What you need" is used as an H3 four times, including above lists of payout speeds and pay ranges, and single bullet points such as "Zero withdrawal fees" are marked up as H4 headings.</dd>
+        <dt>Why it matters</dt>
+        <dd>Headings tell search engines and screen readers what each section is about. When list items are headings, that outline loses its meaning.</dd>
+        <dt>Fix</dt>
+        <dd>Use H2 for sections and H3 for the items inside them, and make list items normal list items.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>8. Structured data is duplicated and contradicts itself</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>After rendering, the homepage has three Organization blocks and two WebSite blocks. The server-side Organization gives the legal name "Funngro Innovations Pvt Ltd" while the JavaScript one gives "Wishbanc Technologies Private Limited". The <code>logo</code> field points to the 1200×630 social image, not a logo. The Instagram link in <code>sameAs</code> is <code>instagram.com/fun.n.gro</code>, while the Funngro app links to <code>instagram.com/funngro</code>.</dd>
+        <dt>Why it matters</dt>
+        <dd>Conflicting company details weaken the brand's knowledge-panel information and make the markup less trustworthy.</dd>
+        <dt>Fix</dt>
+        <dd>Keep one Organization block with the correct legal name, a real logo file and verified profile links.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>9. FAQ answers are not in the page</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd><code>/faq</code> marks up 37 questions in FAQPage structured data, but none of the 37 answers is present in the rendered page until a question is tapped. The page text is only about 390 words.</dd>
+        <dt>Why it matters</dt>
+        <dd>The answers are the most useful long-tail content on the site, and they cannot be indexed as page content. Google also expects marked-up content to match what is on the page.</dd>
+        <dt>Fix</dt>
+        <dd>Keep the answers in the HTML and collapse them with native <code>&lt;details&gt;</code> elements.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>10. Page speed on mobile is below target</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd>Performance scores are 70 to 75. LCP is 3.7 s on <code>/earn</code> and 3.9 s on <code>/for-brands</code>, TBT is 1,250 ms on the homepage, and CLS is 0.11 on <code>/for-brands</code>. Lighthouse estimates 93 to 98 KiB of unused JavaScript per page, and 17 of 19 homepage images have no width and height attributes.</dd>
+        <dt>Why it matters</dt>
+        <dd>Core Web Vitals are a ranking signal, and most of Funngro's audience is on mobile.</dd>
+        <dt>Fix</dt>
+        <dd>Pre-rendering (finding 1) brings LCP down. Split the JavaScript by route and add width and height to images.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri med">Medium priority</span>
+      <h3>11. The company page is light on proof</h3>
+      <dl>
+        <dt>Evidence</dt>
+        <dd><code>/for-brands</code> has about 700 words, no FAQ and no named client. Its results come from one "representative" campaign with the brand name held back under NDA.</dd>
+        <dt>Why it matters</dt>
+        <dd>Business buyers and search engines both look for evidence. Named case studies and answered questions are what earn trust and long-tail traffic.</dd>
+        <dt>Fix</dt>
+        <dd>Add an FAQ with FAQPage markup, client logos or named case studies, and link to them from this page.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <span class="pri low">Low priority</span>
+      <h3>12. Smaller clean-ups</h3>
+      <ul class="bullets">
+        <li><code>/earn</code> says "over 5,000 live campaigns" while <code>/for-brands</code> says "5,000+ brands" and "1,000+ live projects". Make the numbers agree.</li>
+        <li>The site has an English, Hinglish and Hindi switch, but there are no hreflang tags and no Hindi URLs in the sitemap. If the language only changes in the browser, the Hindi content cannot rank.</li>
+        <li>All 39 sitemap URLs share the same <code>lastmod</code> date of 26 June 2026. Use real modification dates or leave the field out.</li>
+        <li>The same <code>meta keywords</code> tag is on every page. Google ignores it, so it can be removed.</li>
+        <li>The homepage meta description is 168 characters and may be cut off in results. Keep it under about 155.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Keyword direction for the two pages</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Page</th><th>Search intent to own</th><th>Example searches</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Teen page (<code>/earn</code>)</td>
+            <td>A teen or student in India looking for a safe, free way to earn online.</td>
+            <td>earn money online for teens in India; online earning app without investment; part-time jobs for students from home; is Funngro safe</td>
+          </tr>
+          <tr>
+            <td>Company page (<code>/for-brands</code>)</td>
+            <td>A marketer who wants to reach young Indians and pay for outcomes.</td>
+            <td>Gen Z marketing India; micro-influencer campaigns India; product sampling campaigns; UGC creators India; campus ambassador programme</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">These are my recommendations from reading the pages. I had no access to search-volume data, so they should be validated in Search Console or a keyword tool.</p>
+  </section>
+
+  <section>
+    <h2>How the redesign applies these fixes</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Finding</th><th>What the two concept pages do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1. Empty server HTML</td><td>Plain HTML with no JavaScript. All copy, headings and links are in the page source.</td></tr>
+          <tr><td>2. Description and canonical</td><td>Both are written in the HTML head of each page.</td></tr>
+          <tr><td>3. Soft 404</td><td>A dedicated <code>404.html</code> for the host to serve on missing URLs.</td></tr>
+          <tr><td>4. Two addresses</td><td>One address in the canonical, <code>og:url</code>, structured data and sitemap.</td></tr>
+          <tr><td>5. Changing titles</td><td>One title per page, 54 and 60 characters, written once in the HTML.</td></tr>
+          <tr><td>6. Audience</td><td>The teen page is written for teens and students. The company page targets Gen Z marketing searches.</td></tr>
+          <tr><td>7. Headings</td><td>One H1, an H2 per section and H3 for items. 33 headings per page with no skipped levels.</td></tr>
+          <tr><td>8. Structured data</td><td>One JSON-LD graph per page with Organization, FAQPage and either MobileApplication or BreadcrumbList.</td></tr>
+          <tr><td>9. FAQ answers</td><td>Six questions per page in native <code>&lt;details&gt;</code>, with answers that match the FAQPage markup word for word.</td></tr>
+          <tr><td>10. Page speed</td><td>No JavaScript, no web fonts and one 11 KB stylesheet. Each page weighs about 28 KiB.</td></tr>
+          <tr><td>11. Proof on the company page</td><td>Results shown at the top with their source and caveat, a four-step process and a six-question FAQ.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:1.5rem 0 .6rem">Lighthouse scores for the concept pages</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Page</th><th>Performance</th><th>Accessibility</th><th>Best practices</th><th>SEO</th><th>LCP</th><th>TBT</th><th>CLS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Teen page</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">1.0 s</td><td class="n">0 ms</td><td class="n">0</td></tr>
+          <tr><td>Company page</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">100</td><td class="n">1.0 s</td><td class="n">10 ms</td><td class="n">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Same Lighthouse version and mobile settings, one run per page, measured on a local server before hosting.</p>
+  </section>
+
+  <section>
+    <h2>Limits of this audit</h2>
+    <ul class="bullets">
+      <li>I had no access to Search Console, analytics, backlink data or keyword volumes.</li>
+      <li>Page-speed numbers are lab results from a single run, not real-user data.</li>
+      <li>The audit covers the pages listed at the top. Blog posts and story pages were not reviewed individually.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer" style="border:0;padding:0">Audit prepared for the Funngro Website Revamp project. See the concept pages: <a href="./">earn online as a teen</a> and <a href="company.html">Funngro for companies</a>.</p>
+  </div>
+</footer>
+</body>
+</html>
